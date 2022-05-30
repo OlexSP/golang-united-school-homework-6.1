@@ -91,22 +91,17 @@ func (b *box) SumArea() float64 {
 // whether circles are not exist in the list, then returns an error
 func (b *box) RemoveAllCircles() error {
 	var counterSlice []int
-	var counter int
 	for i, v := range b.shapes {
 		switch v.(type) {
 		case Circle:
 			counterSlice = append(counterSlice, i)
-			counter++
 		}
 	}
-	if counter == 0 {
+	if len(counterSlice) == 0 {
 		return fmt.Errorf(inputErrorString, errorNotExist)
 	}
 	for _, v := range counterSlice {
-		_, err := b.ExtractByIndex(v)
-		if err != nil {
-			return err
-		}
+		b.shapes = append(b.shapes[:v], b.shapes[v+1:]...)
 	}
 	return nil
 }
