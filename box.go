@@ -100,8 +100,8 @@ func (b *box) RemoveAllCircles() error {
 	if len(counterSlice) == 0 {
 		return fmt.Errorf(inputErrorString, errorNotExist)
 	}
-	for _, v := range counterSlice {
-		b.shapes = append(b.shapes[:v], b.shapes[v+1:]...)
+	for i, v := range counterSlice {
+		b.shapes = append(b.shapes[:v-i], b.shapes[v+1-i:]...)
 	}
 	return nil
 }
