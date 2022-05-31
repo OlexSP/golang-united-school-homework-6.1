@@ -93,13 +93,15 @@ func (b *box) RemoveAllCircles() error {
 	var counterSlice []int
 	for i, v := range b.shapes {
 		switch v.(type) {
-		case Circle:
+		case *Circle:
 			counterSlice = append(counterSlice, i)
 		}
 	}
 	if len(counterSlice) == 0 {
 		return fmt.Errorf(inputErrorString, errorNotExist)
 	}
+	// removing shapes by index (or we could append !Circle in counterSlice[]Shape
+	// and copy it to b.shapes)
 	for i, v := range counterSlice {
 		b.shapes = append(b.shapes[:v-i], b.shapes[v+1-i:]...)
 	}
